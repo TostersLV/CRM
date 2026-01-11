@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('inspections', function (Blueprint $table) {
             $table->id();
+            $table->string('inspection_id')->unique();
             $table->foreignId('case_id')->constrained('cases')->onDelete('cascade');    
             $table->string('type');
             $table->string('requested_by');

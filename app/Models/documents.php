@@ -10,5 +10,5 @@ class documents extends Model
     /** @use HasFactory<\Database\Factories\DocumentsFactory> */
     use HasFactory;
 
-    protected $fillable = ['case_id', 'filename', 'mime_type', 'category', 'pages', 'uploaded_by'];
+    protected $fillable = ['id', 'document_id', 'case_id', 'filename', 'mime_type', 'category', 'pages', 'uploaded_by'];
 }

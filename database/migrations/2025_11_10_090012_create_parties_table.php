@@ -13,9 +13,10 @@ return new class extends Migration
     {
         Schema::create('parties', function (Blueprint $table) {
             $table->id();
+            $table->string('party_id')->unique();
             $table->string('type');
             $table->string('name');
-            $table->integer('reg_code');
+            $table->string('reg_code');
             $table->string('vat');
             $table->string('country');
             $table->string('email');

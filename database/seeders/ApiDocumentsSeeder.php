@@ -11,15 +11,21 @@ class ApiDocumentsSeeder extends Seeder
 {
     public function run(): void
     {
-        $response = Http::get(env('API_URL') . '/documents');
+        $response = Http::get(env('API_URL') );
 
+        $data = $response->json();
+        if(is_string($data)){
+            $data = json_decode($data, true);
+        }
+
+        
         if ($response->failed()) {
             $this->command->error('❌ Failed to fetch cases from API');
             return;
         }
 
         foreach ($response->json() as $documentData) {
-            // Create case record
+           
             documents::create([
                 
                 'case_id' => $documentData['case_id'],

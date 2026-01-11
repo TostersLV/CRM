@@ -10,7 +10,7 @@ class inspections extends Model
     /** @use HasFactory<\Database\Factories\InspectionsFactory> */
     use HasFactory;
 
-    protected $fillable = ['id', 'case_id', 'type', 'requested_by', 'start_ts', 'location', 'assigned_to'];
+    protected $fillable = ['id', 'inspection_id', 'case_id', 'type', 'requested_by', 'start_ts', 'location', 'assigned_to'];
 
     public function checks(){
         return $this->hasMany(checks::class);

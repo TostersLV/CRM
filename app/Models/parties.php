@@ -10,5 +10,5 @@ class parties extends Model
     /** @use HasFactory<\Database\Factories\PartiesFactory> */
     use HasFactory;
 
-    protected $fillable = ['id', 'type', 'name', 'reg_code', 'vat', 'country', 'email', 'phone'];
+    protected $fillable = ['id', 'party_id', 'type', 'name', 'reg_code', 'vat', 'country', 'email', 'phone'];
 }

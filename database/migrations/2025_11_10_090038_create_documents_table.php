@@ -14,6 +14,7 @@ return new class extends Migration
     {
         Schema::create('documents', function (Blueprint $table) {
             $table->id();
+            $table->string('document_id')->unique();
             $table->string('case_id');
             $table->string('filename');
             $table->string('mime_type');

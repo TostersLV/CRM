@@ -10,7 +10,12 @@ class ApiInspectionsSeeder extends Seeder
 {
     public function run(): void
     {
-        $response = Http::get(env('API_URL') . '/inspections');
+        $response = Http::get(env('API_URL') );
+
+        $data = $response->json();
+        if(is_string($data)){
+            $data = json_decode($data, true);
+        }
 
         if ($response->failed()) {
             $this->command->error('❌ Failed to fetch inspections');

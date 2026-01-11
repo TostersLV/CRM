@@ -3,9 +3,7 @@
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
-// ---------------------------------------------
-// ADDED: Use statements for all API Seeders
-// ---------------------------------------------
+
 use Database\Seeders\ApiUsersSeeder;
 use Database\Seeders\ApiPartiesSeeder;
 use Database\Seeders\ApiVehiclesSeeder;
@@ -25,20 +23,20 @@ class DatabaseSeeder extends Seeder
         // These tables do not rely on any other primary records.
         // =======================================================
         $this->call([
-            ApiUsersSeeder::class,     // Users (required for assigned_to and uploaded_by)
-            ApiPartiesSeeder::class,   // Parties (required for consignee_id/declarant_id in Cases)
-            ApiVehiclesSeeder::class,  // Vehicles (required for vehicle_id in Cases)
+            ApiUsersSeeder::class,    
+            ApiPartiesSeeder::class,   
+            ApiVehiclesSeeder::class,  
         ]);
 
         
         $this->call([
-            ApiCasesSeeder::class,     // Cases (requires Users, Parties, Vehicles)
+            ApiCasesSeeder::class,     
         ]);
 
        
         $this->call([
-            ApiInspectionsSeeder::class, // Inspections (requires Cases)
-            ApiDocumentsSeeder::class,   // Documents (requires Cases and Users)
+            ApiInspectionsSeeder::class, 
+            ApiDocumentsSeeder::class,  
         ]);
 
        

@@ -10,5 +10,5 @@ class vehicles extends Model
     /** @use HasFactory<\Database\Factories\VehiclesFactory> */
     use HasFactory;
 
-    protected $fillable = ['id', 'plate_no', 'country', 'make', 'model', 'vin'];
+    protected $fillable = ['id', 'vehicle_id', 'plate_no', 'country', 'make', 'model', 'vin'];
 }
