@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('cases', function (Blueprint $table) {
             $table->id();
-            $table->string('case_id');
+            $table->string('case_id')->unique();
             $table->string('external_ref');
             $table->string('status');
             $table->string('priority');

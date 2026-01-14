@@ -16,6 +16,7 @@ return new class extends Migration
             $table->id();
             $table->string('document_id')->unique();
             $table->string('case_id');
+            $table->foreign('case_id')->references('case_id')->on('cases')->cascadeOnDelete();
             $table->string('filename');
             $table->string('mime_type');
             $table->string('category');

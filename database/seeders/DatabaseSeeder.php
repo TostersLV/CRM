@@ -10,6 +10,7 @@ use Database\Seeders\ApiVehiclesSeeder;
 use Database\Seeders\ApiCasesSeeder;
 use Database\Seeders\ApiInspectionsSeeder;
 use Database\Seeders\ApiDocumentsSeeder;
+use Database\Seeders\ApiTotalSeeder;
 
 class DatabaseSeeder extends Seeder
 {
@@ -25,18 +26,21 @@ class DatabaseSeeder extends Seeder
         $this->call([
             ApiUsersSeeder::class,    
             ApiPartiesSeeder::class,   
-            ApiVehiclesSeeder::class,  
+            ApiVehiclesSeeder::class,
+            ApiCasesSeeder::class,
+            ApiInspectionsSeeder::class, 
+            ApiDocumentsSeeder::class,
+            ApiTotalSeeder::class,
         ]);
 
         
         $this->call([
-            ApiCasesSeeder::class,     
+                
         ]);
 
        
         $this->call([
-            ApiInspectionsSeeder::class, 
-            ApiDocumentsSeeder::class,  
+             
         ]);
 
        

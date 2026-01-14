@@ -4,7 +4,7 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Http;
-use App\Models\documents;
+use App\Models\Documents;
 
 
 class ApiDocumentsSeeder extends Seeder
@@ -16,18 +16,14 @@ class ApiDocumentsSeeder extends Seeder
         $data = $response->json();
         if(is_string($data)){
             $data = json_decode($data, true);
-        }
+        }   
 
-        
-        if ($response->failed()) {
-            $this->command->error('❌ Failed to fetch cases from API');
-            return;
-        }
+        $documentsData = $data['documents'];
 
-        foreach ($response->json() as $documentData) {
+        foreach ($documentsData as $documentData) {
            
-            documents::create([
-                
+            Documents::create([
+                'document_id' => $documentData['id'],
                 'case_id' => $documentData['case_id'],
                 'filename' => $documentData['filename'],
                 'mime_type' => $documentData['mime_type'],

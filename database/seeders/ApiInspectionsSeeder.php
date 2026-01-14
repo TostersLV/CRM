@@ -3,8 +3,9 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Http;
-use App\Models\inspections;
-use App\Models\checks;
+use Illuminate\Support\Carbon;
+use App\Models\Inspections;
+use App\Models\Checks;
 
 class ApiInspectionsSeeder extends Seeder
 {
@@ -17,14 +18,21 @@ class ApiInspectionsSeeder extends Seeder
             $data = json_decode($data, true);
         }
 
-        if ($response->failed()) {
-            $this->command->error('❌ Failed to fetch inspections');
-            return;
-        }
+        
+        $inspectionsData = $data['inspections'];
 
-        foreach ($response->json() as $inspectionData) {
+        $inspectionsData = array_map(function ($inspectionData) {
+        if (isset($inspectionData['start_ts'])) {
+            $inspectionData['start_ts'] = Carbon::parse($inspectionData['start_ts'])
+                ->setTimezone('UTC')
+                ->toDateTimeString();
+        }  
+            return $inspectionData;
+        }, $inspectionsData);   
+
+        foreach ($inspectionsData as $inspectionData) {
             // Create inspection
-            $inspection = inspections::create([
+            $inspection = Inspections::create([
                 'inspection_id' => $inspectionData['id'],
                 'case_id' => $inspectionData['case_id'],
                 'type' => $inspectionData['type'],
@@ -36,14 +44,14 @@ class ApiInspectionsSeeder extends Seeder
 
             // Create related checks
             foreach ($inspectionData['checks'] ?? [] as $check) {
-                checks::create([
+                Checks::create([
                     'inspection_id' => $inspection->id,
                     'name' => $check['name'],
                     'result' => $check['result'],
                 ]);
-            }
+            } 
         }
 
-        $this->command->info('✅ Inspections imported successfully!');
+        
     }
 }

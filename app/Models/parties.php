@@ -5,10 +5,19 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class parties extends Model
+class Parties extends Model
 {
     /** @use HasFactory<\Database\Factories\PartiesFactory> */
     use HasFactory;
 
-    protected $fillable = ['id', 'party_id', 'type', 'name', 'reg_code', 'vat', 'country', 'email', 'phone'];
+    protected $fillable = [
+        'party_id',
+        'type',
+        'name',
+        'reg_code',
+        'vat',
+        'country',
+        'email',
+        'phone',
+    ];
 }

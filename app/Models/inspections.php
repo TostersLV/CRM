@@ -5,14 +5,23 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class inspections extends Model
+class Inspections extends Model
 {
     /** @use HasFactory<\Database\Factories\InspectionsFactory> */
     use HasFactory;
 
-    protected $fillable = ['id', 'inspection_id', 'case_id', 'type', 'requested_by', 'start_ts', 'location', 'assigned_to'];
+    protected $fillable = [
+        'inspection_id',
+        'case_id',
+        'type',
+        'requested_by',
+        'start_ts',
+        'location',
+        'assigned_to',
+    ];
 
-    public function checks(){
-        return $this->hasMany(checks::class);
+    public function checks()
+    {
+        return $this->hasMany(Checks::class);
     }
 }
