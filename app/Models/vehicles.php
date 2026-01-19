@@ -18,4 +18,9 @@ class Vehicles extends Model
         'model',
         'vin',
     ];
+
+    public function cases()
+    {
+        return $this->hasMany(Cases::class, 'vehicle_id', 'vehicle_id');
+    }
 }

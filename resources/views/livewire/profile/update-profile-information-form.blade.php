@@ -41,9 +41,7 @@ new class extends Component
             'username' => ['required', 'string', 'lowercase', 'max:255', Rule::unique(User::class)->ignore($user->id)],
         ]);
 
-        $user->fill($validated);
-
-        $user->save();
+        
 
         // Keep the event key as "name" since the nav listens for it.
         $this->dispatch('profile-updated', name: $user->full_name);

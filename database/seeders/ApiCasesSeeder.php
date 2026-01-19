@@ -46,13 +46,12 @@ class ApiCasesSeeder extends Seeder
                 'checkpoint_id' => $caseData['checkpoint_id'],
                 'origin_country' => $caseData['origin_country'],
                 'destination_country' => $caseData['destination_country'],
-                
                 'declerant_id' => $caseData['declarant_id'],
                 'consignee_id' => $caseData['consignee_id'],
                 'vehicle_id' => $caseData['vehicle_id'],
             ]); 
 
-            // Create related risk flags
+            
             foreach ($caseData['risk_flags'] ?? [] as $flag) {
                 RiskFlags::create([
                     'case_id' => $case->id,
@@ -62,6 +61,6 @@ class ApiCasesSeeder extends Seeder
             }
         }
 
-        $this->command->info('✅ Cases and risk flags imported successfully!');
+        
     }
 }

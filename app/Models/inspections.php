@@ -22,6 +22,11 @@ class Inspections extends Model
 
     public function checks()
     {
-        return $this->hasMany(Checks::class);
+        return $this->hasMany(Checks::class, 'inspection_id', 'id');
+    }
+
+    public function case()
+    {
+        return $this->belongsTo(Cases::class, 'case_id', 'case_id');
     }
 }

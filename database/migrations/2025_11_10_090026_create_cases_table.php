@@ -24,6 +24,7 @@ return new class extends Migration
             $table->string('declerant_id');
             $table->string('consignee_id');
             $table->string('vehicle_id');
+            $table->foreign('vehicle_id')->references('vehicle_id')->on('vehicles')->cascadeOnDelete();
             $table->timestamps();
         });
 

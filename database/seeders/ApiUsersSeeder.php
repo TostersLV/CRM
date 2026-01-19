@@ -1,6 +1,7 @@
 <?php
 
 namespace Database\Seeders;
+use Illuminate\Support\Facades\DB;
 
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Http;
@@ -21,15 +22,29 @@ class ApiUsersSeeder extends Seeder
         }
         
         $usersData = $data['users'];
+
+        
         
         foreach ($usersData as $userData) {
-            User::create([
+           User::firstOrCreate([
                 'user_id' => $userData['id'],
                 'username' => $userData['username'],
                 'full_name' => $userData['full_name'],
                 'role' => $userData['role'],
                 'active' => $userData['active'],
             ]);
+            $duplicateNames = User::select('full_name')
+            ->groupBy('full_name')
+            ->havingRaw('count(*) > 1')
+            ->pluck('full_name');
+
+        foreach ($duplicateNames as $fullName) {
+            User::where('full_name', $fullName)
+                ->orderBy('id')
+                ->skip(1)
+                ->delete();
+        }
+            
         }
 
         

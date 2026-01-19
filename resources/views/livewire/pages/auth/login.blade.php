@@ -4,6 +4,7 @@ use App\Livewire\Forms\LoginForm;
 use Illuminate\Support\Facades\Session;
 use Livewire\Attributes\Layout;
 use Livewire\Volt\Component;
+use Illuminate\Support\Facades\Auth;
 
 new #[Layout('layouts.guest')] class extends Component
 {
@@ -20,7 +21,19 @@ new #[Layout('layouts.guest')] class extends Component
 
         Session::regenerate();
 
-        $this->redirectIntended(default: route('dashboard', absolute: false), navigate: true);
+        $role = Auth::user()->role;
+
+        if ($role === 'admin') {
+            $redirect = route('roleviews.admin');
+        } elseif ($role === 'analyst') {
+            $redirect = route('roleviews.analyst');
+        } elseif ($role === 'broker') {
+            $redirect = route('roleviews.broker');
+        } elseif ($role === 'inspector') {
+            $redirect = route('roleviews.inspector');
+        }
+
+        $this->redirectIntended(default: $redirect, navigate: true);
     }
 }; ?>
 
@@ -43,7 +56,7 @@ new #[Layout('layouts.guest')] class extends Component
             <x-text-input wire:model="form.username" id="username" class="block mt-1 w-full"
                             type="text"
                             name="username"
-                            required autocomplete="username" />
+                            required autocomplete="password" />
 
             <x-input-error :messages="$errors->get('form.username')" class="mt-2" />
         </div>

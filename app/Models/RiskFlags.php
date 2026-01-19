@@ -11,8 +11,14 @@ class RiskFlags extends Model
 
     protected $fillable = ['id', 'case_id', 'flag'];
 
-    public function cases(){
-        return $this->belongsTo(Cases::class);
+    public function case()
+    {
+        return $this->belongsTo(Cases::class, 'case_id', 'id');
+    }
+
+    public function cases()
+    {
+        return $this->case();
     }
 
 }

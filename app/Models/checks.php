@@ -17,6 +17,6 @@ class Checks extends Model
 
     public function inspections()
     {
-        return $this->belongsTo(Inspections::class);
+        return $this->belongsTo(Inspections::class, 'inspection_id', 'id');
     }
 }

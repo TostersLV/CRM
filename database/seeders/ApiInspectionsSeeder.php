@@ -31,7 +31,7 @@ class ApiInspectionsSeeder extends Seeder
         }, $inspectionsData);   
 
         foreach ($inspectionsData as $inspectionData) {
-            // Create inspection
+            
             $inspection = Inspections::create([
                 'inspection_id' => $inspectionData['id'],
                 'case_id' => $inspectionData['case_id'],
@@ -42,7 +42,7 @@ class ApiInspectionsSeeder extends Seeder
                 'assigned_to' => $inspectionData['assigned_to'],
             ]);
 
-            // Create related checks
+            
             foreach ($inspectionData['checks'] ?? [] as $check) {
                 Checks::create([
                     'inspection_id' => $inspection->id,

@@ -26,11 +26,21 @@ class Cases extends Model
 
     public function risk_flags()
     {
-        return $this->hasMany(RiskFlags::class);
+        return $this->hasMany(RiskFlags::class, 'case_id', 'id');
     }
 
     public function documents()
     {
         return $this->hasMany(Documents::class, 'case_id', 'case_id');
+    }
+
+    public function vehicle()
+    {
+        return $this->belongsTo(Vehicles::class, 'vehicle_id', 'vehicle_id');
+    }
+
+    public function inspections()
+    {
+        return $this->hasMany(Inspections::class, 'case_id', 'case_id');
     }
 }
