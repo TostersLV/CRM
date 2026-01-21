@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Cases extends Model
 {
@@ -43,4 +44,12 @@ class Cases extends Model
     {
         return $this->hasMany(Inspections::class, 'case_id', 'case_id');
     }
+
+    public function reject_reason()
+    {
+        return $this->hasMany(Reject_reason::class, 'case_id', 'id');
+    }
+
+
+    
 }

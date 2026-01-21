@@ -23,6 +23,7 @@ Route::get('analyst/screening-cases', [AnalystController::class, 'screeningCases
     ->middleware(['auth', 'can:viewAnalyst']);
 
 Route::patch('analyst/cases/{caseId}', [AnalystController::class, 'update'])->middleware(['auth', 'can:viewAnalyst'])->name('roleview.analyst');
+Route::patch('inspector/cases/{caseId}', [InspectorController::class, 'update'])->middleware(['auth', 'can:viewInspector'])->name('roleview.inspector');
     
 
 

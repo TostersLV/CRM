@@ -5,9 +5,21 @@
                 <div class="p-6">
                     <div class="flex items-center justify-between gap-4">
                         <h3 class="text-lg font-semibold">Screening queue</h3>
-                        <div id="refresh" class="text-sm ">Refreshing every 4 seconds...</div>
+                        <div id="refresh" class="text-sm ">Refreshing every 6 seconds...</div>
                         
                     </div>
+
+                    <form method="GET" action="{{ url('analyst') }}" class="mt-4 flex items-center gap-2">
+                        <input
+                            type="text"
+                            name="q"
+                            value="{{ $q ?? request('q') }}"
+                            placeholder="Search case id..."
+                            class="w-full max-w-sm rounded border-gray-300"
+                        />
+                        <button type="submit" class="px-3 py-2 rounded bg-gray-200">Search</button>
+                        <a href="{{ url('analyst') }}" class="px-3 py-2 rounded bg-gray-100">Clear</a>
+                    </form>
 
                     <div class="mt-4 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                         @if (!empty($screeningCases) && $screeningCases->count() > 0)
@@ -29,6 +41,19 @@
                                             @endif
                                         </div>
                                     </div>
+                                    @if($case->reject_reason && $case->reject_reason->count() > 0)
+                                    @foreach($case->reject_reason as $reject)
+                                    <div class=" my-2 border-black-300 border rounded-lg">
+                                        <div class="border-1 bg-slate-300 rounded-tl-lg rounded-tr-lg">
+                                            <div class=" ml-2">Reason of rejection</div>
+                                        </div>
+                                            <div class="ml-2">{{ $reject->reason }} </div>
+                                    </div>
+                                    @endforeach
+                                    @else
+                                    <div></div>
+                                    @endif
+                                    
                                 <form action="{{ route('roleview.analyst', $case->case_id) }}" method="POST">
                                     @csrf
                                     @method('PATCH')
@@ -41,7 +66,11 @@
                                 </div>
                             @endforeach
                         @else
-                            <div class="text-gray-600">No cases in screening.</div>
+                            @if (!empty($q ?? request('q')))
+                                <div class="text-gray-600">No screening cases match "{{ $q ?? request('q') }}".</div>
+                            @else
+                                <div class="text-gray-600">No cases in screening.</div>
+                            @endif
                         @endif
                     </div>
                 </div>
@@ -53,7 +82,7 @@
          function autoRefresh() {
             window.location = window.location.href;
         }
-        setInterval('autoRefresh()', 4000);
+        setInterval('autoRefresh()', 6000);
 
         let timeout;
         window.addEventListener("scroll", ()=>{

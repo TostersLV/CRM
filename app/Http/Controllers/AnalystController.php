@@ -7,12 +7,23 @@ use Illuminate\Http\Request;
 
 class AnalystController extends Controller
 {
-    public function index(){
-        
-        $screeningCases = Cases::query()->where('status', 'screening')->with('risk_flags')->orderByDesc('updated_at')->limit(40)->get();
-        
+    public function index(Request $request)
+    {
+        $q = trim((string) $request->query('q', ''));
+
+        $screeningCases = Cases::query()
+            ->where('status', 'screening')
+            ->when($q !== '', function ($query) use ($q) {
+                $query->where('case_id', 'like', "%{$q}%");
+            })
+            ->with(['risk_flags', 'reject_reason'])
+            ->orderByDesc('updated_at')
+            ->limit(40)
+            ->get();
+
         return view('roleviews.analyst', [
             'screeningCases' => $screeningCases,
+            'q' => $q,
         ]);
     }
   
@@ -27,6 +38,7 @@ class AnalystController extends Controller
                     'case_id' => $case->case_id,
                     'origin_country' => $case->origin_country,
                     'risk_flags' => $case->risk_flags->pluck('flag')->values(),
+                    'reject_reason',
                 ];
             })->values(),
         ]);
